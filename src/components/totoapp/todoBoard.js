@@ -4,8 +4,7 @@ import TodoList from 'components/totoapp/todoList';
 import { FaPlus, FaMinus } from 'react-icons/fa';
 
 const TodoBoard = ({ title }) => {
-  const inititalState = () =>
-    JSON.parse(window.localStorage.getItem('todo') || []);
+  const inititalState = JSON.parse(window.localStorage.getItem('todo') || '[]');
   const [isTyping, setIsTyping] = useState(false);
   const [todoList, setTodoList] = useState(inititalState);
 
