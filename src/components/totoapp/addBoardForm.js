@@ -1,23 +1,24 @@
 import { useState } from 'react';
+import { getUniqueStr } from 'components/utility';
 
-const AddForm = ({
-  setTodoList = () => undefined,
-  setIsTyping = () => undefined,
+const AddBoardForm = ({
+  setTodoData = () => undefined,
+  setIsAdding = () => undefined,
 }) => {
   const [value, setValue] = useState('');
   const typoTask = (e) => setValue(e.target.value);
 
-  const getUniqueStr = () =>
-    new Date().getTime().toString(16) +
-    Math.floor(10000 * Math.random()).toString(16);
-
   const handleSubmit = (e) => {
     e.preventDefault();
-    setTodoList((todoList) => [
-      ...todoList,
-      { id: getUniqueStr(), title: value, isCompleted: false },
+    setTodoData((todoData) => [
+      ...todoData,
+      {
+        title: value,
+        id: getUniqueStr(),
+        todo: [],
+      },
     ]);
-    setIsTyping(false);
+    setIsAdding(false);
   };
 
   return (
@@ -28,17 +29,17 @@ const AddForm = ({
         value={value}
         onChange={typoTask}
         required
-        placeholder="ここにタスクを入力"
+        placeholder="ここにボードタイトルを入力"
         autoComplete="off"
       />
       <button
         className="grid place-items-center w-full rounded-sm py-1 bg-green-500 hover:bg-green-600 text-white"
         type="submit"
       >
-        追加
+        ボードを追加
       </button>
     </form>
   );
 };
 
-export default AddForm;
+export default AddBoardForm;
