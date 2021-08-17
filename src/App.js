@@ -7,7 +7,7 @@ const App = () => (
     <h1 className="text-lg font-bold pb-2 border-b-2 border-gray-400 border-dashed mb-4 flex justify-between">
       TODO Board
       <a
-        href="https://github.com/morimorig3/react-todoapp"
+        href="https://github.com/morimorig3/todo-board"
         target="_blank"
         rel="noreferrer"
       >
