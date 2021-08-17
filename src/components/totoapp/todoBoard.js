@@ -13,7 +13,7 @@ const TodoBoard = ({ id, setTodoData = () => undefined, todoData = [] }) => {
 
   return (
     <div className="bg-white rounded-lg py-2 px-4 my-4">
-      <div className="flex justify-between items-center mb-2">
+      <div className="flex justify-between items-center">
         <h3 className="font-bold text-lg">{title}</h3>
         {isTyping ? (
           <button

@@ -13,7 +13,7 @@ const TodoList = ({ id, todo = [], setTodoData = () => undefined }) => {
   };
 
   return (
-    <ul className="grid grid-cols-1 gap-2">
+    <ul className="grid grid-cols-1 gap-2 mt-2">
       {todo.map((todo) => (
         <li
           className="flex justify-between items-center border border-gray-300 p-2 rounded-sm"
