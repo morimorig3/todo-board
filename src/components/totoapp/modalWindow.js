@@ -6,14 +6,14 @@ Modal.setAppElement('#root');
 const Modalwindow = ({
   modalIsOpen = false,
   setIsOpen = () => undefined,
-  setTodoData = () => undefined,
+  executeFunc = () => undefined,
+  modaltext = '',
 }) => {
   const closeModal = () => setIsOpen(false);
-  const clearData = () => {
-    setTodoData([]);
+  const confirmed = () => {
+    executeFunc();
     setIsOpen(false);
   };
-  console.log(style.Overlay);
 
   return (
     <Modal
@@ -26,11 +26,11 @@ const Modalwindow = ({
         beforeClose: style.Overlay__before,
       }}
     >
-      <p className="font-bold mb-4">すべてのボードを削除しますか？</p>
+      <p className="font-bold mb-4">{modaltext}</p>
       <div className="flex gap-4 justify-center">
         <button
           className="w-24 border-2 border-red-500 hover:border-transparent hover:bg-red-500 text-red-500 hover:text-gray-100 transition-colors font-bold py-2 px-4 rounded"
-          onClick={clearData}
+          onClick={confirmed}
         >
           はい
         </button>

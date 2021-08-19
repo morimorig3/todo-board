@@ -17,7 +17,7 @@ const TodoApp = () => {
 
   const showBoardForm = () => setIsAdding(true);
   const hideBoardForm = () => setIsAdding(false);
-  // const clearData = () => setTodoData([]);
+  const clearData = () => setTodoData([]);
   const clearButton = () => setIsOpen(true);
 
   return (
@@ -47,7 +47,8 @@ const TodoApp = () => {
         <Modalwindow
           modalIsOpen={modalIsOpen}
           setIsOpen={setIsOpen}
-          setTodoData={setTodoData}
+          executeFunc={clearData}
+          modaltext="すべてのボードを削除しますか？"
         />
       </div>
       {isAdding && (
@@ -57,7 +58,7 @@ const TodoApp = () => {
         {todoData.map((board) => (
           <TodoBoard
             key={board.id}
-            id={board.id}
+            boardId={board.id}
             setTodoData={setTodoData}
             todoData={todoData}
           />
