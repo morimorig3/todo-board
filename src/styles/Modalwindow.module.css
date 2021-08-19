@@ -1,0 +1,7 @@
+.Overlay {
+    @apply fixed inset-0 bg-black bg-opacity-60 flex justify-center items-center
+}
+
+.modal__container {
+    @apply bg-gray-100 p-6 rounded-lg overflow-y-auto box-border max-h-screen max-w-lg
+}
