@@ -13,13 +13,18 @@ const Modalwindow = ({
     setTodoData([]);
     setIsOpen(false);
   };
+  console.log(style.Overlay);
 
   return (
     <Modal
       isOpen={modalIsOpen}
       onRequestClose={closeModal}
       className={style.modal__container}
-      overlayClassName={style.Overlay}
+      overlayClassName={{
+        base: style.Overlay,
+        afterOpen: style.Overlay__after,
+        beforeClose: style.Overlay__before,
+      }}
     >
       <p className="font-bold mb-4">すべてのボードを削除しますか？</p>
       <div className="flex gap-4 justify-center">

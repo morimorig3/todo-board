@@ -1,5 +1,11 @@
 .Overlay {
-    @apply fixed inset-0 bg-black bg-opacity-60 flex justify-center items-center
+    @apply fixed inset-0 bg-black bg-opacity-0 flex justify-center items-center transition-colors duration-300
+}
+.Overlay__before {
+    @apply  bg-black bg-opacity-0
+}
+.Overlay__after {
+    @apply  bg-black bg-opacity-60
 }
 
 .modal__container {
