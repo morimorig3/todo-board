@@ -1,18 +1,25 @@
+import { VFC } from 'react';
 import Modal from 'react-modal';
 import style from 'styles/Modalwindow.module.css';
 
 Modal.setAppElement('#root');
 
-const Modalwindow = ({
+type Props = {
+  modalIsOpen: boolean;
+  closeModal: () => void;
+  executeFunc: () => void;
+  modaltext: string;
+};
+
+const Modalwindow: VFC<Props> = ({
   modalIsOpen = false,
-  setIsOpen = () => undefined,
+  closeModal = () => undefined,
   executeFunc = () => undefined,
   modaltext = '',
 }) => {
-  const closeModal = () => setIsOpen(false);
   const confirmed = () => {
     executeFunc();
-    setIsOpen(false);
+    closeModal();
   };
 
   return (

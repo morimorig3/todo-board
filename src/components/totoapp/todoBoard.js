@@ -3,6 +3,7 @@ import { FaTimes } from 'react-icons/fa';
 import AddTaskForm from 'components/totoapp/addTaskForm';
 import TodoList from 'components/totoapp/todoList';
 import Modalwindow from 'components/totoapp/modalWindow';
+import useModal from 'hooks/useModal';
 
 const TodoBoard = ({
   boardId,
@@ -10,14 +11,14 @@ const TodoBoard = ({
   todoData = [],
 }) => {
   const [isTyping, setIsTyping] = useState(false);
-  const [modalIsOpen, setIsOpen] = useState(false);
+  const [isOpen, openModal, closeModal] = useModal();
 
   const { title, todo } = todoData.filter((board) => board.id === boardId)[0];
 
   const showTaskForm = () => setIsTyping(true);
   const hideTaskForm = () => setIsTyping(false);
 
-  const deleteButton = () => setIsOpen(true);
+  const deleteButton = () => openModal();
 
   const deleteBoard = () => {
     setTodoData((todoData) => {
@@ -39,8 +40,8 @@ const TodoBoard = ({
           <FaTimes />
         </button>
         <Modalwindow
-          modalIsOpen={modalIsOpen}
-          setIsOpen={setIsOpen}
+          modalIsOpen={isOpen}
+          closeModal={closeModal}
           executeFunc={deleteBoard}
           modaltext="このボードを削除しますか"
         />

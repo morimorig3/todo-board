@@ -2,13 +2,14 @@ import { useState, useEffect } from 'react';
 import TodoBoard from 'components/totoapp/todoBoard';
 import AddBoardForm from 'components/totoapp/addBoardForm';
 import Modalwindow from 'components/totoapp/modalWindow';
+import useModal from 'hooks/useModal';
 
 const TodoApp = () => {
   const inititalState = JSON.parse(window.localStorage.getItem('todo') || '[]');
 
   const [isAdding, setIsAdding] = useState(false);
   const [todoData, setTodoData] = useState(inititalState);
-  const [modalIsOpen, setIsOpen] = useState(false);
+  const [isOpen, openModal, closeModal] = useModal();
 
   useEffect(
     () => window.localStorage.setItem('todo', JSON.stringify(todoData)),
@@ -18,7 +19,7 @@ const TodoApp = () => {
   const showBoardForm = () => setIsAdding(true);
   const hideBoardForm = () => setIsAdding(false);
   const clearData = () => setTodoData([]);
-  const clearButton = () => setIsOpen(true);
+  const clearButton = () => openModal();
 
   return (
     <div>
@@ -45,8 +46,8 @@ const TodoApp = () => {
           クリア
         </button>
         <Modalwindow
-          modalIsOpen={modalIsOpen}
-          setIsOpen={setIsOpen}
+          modalIsOpen={isOpen}
+          closeModal={closeModal}
           executeFunc={clearData}
           modaltext="すべてのボードを削除しますか？"
         />
