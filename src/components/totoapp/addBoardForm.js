@@ -3,7 +3,7 @@ import { getUniqueStr } from 'components/utility';
 
 const AddBoardForm = ({
   setTodoData = () => undefined,
-  setIsAdding = () => undefined,
+  finishAdding = () => undefined,
 }) => {
   const [value, setValue] = useState('');
   const typoTask = (e) => setValue(e.target.value);
@@ -18,7 +18,7 @@ const AddBoardForm = ({
         todo: [],
       },
     ]);
-    setIsAdding(false);
+    finishAdding();
   };
 
   return (

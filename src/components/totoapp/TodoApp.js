@@ -3,21 +3,20 @@ import TodoBoard from 'components/totoapp/todoBoard';
 import AddBoardForm from 'components/totoapp/addBoardForm';
 import Modalwindow from 'components/totoapp/modalWindow';
 import useModal from 'hooks/useModal';
+import useAdding from 'hooks/useAdding';
+
+const inititalState = JSON.parse(window.localStorage.getItem('todo') || '[]');
 
 const TodoApp = () => {
-  const inititalState = JSON.parse(window.localStorage.getItem('todo') || '[]');
-
-  const [isAdding, setIsAdding] = useState(false);
   const [todoData, setTodoData] = useState(inititalState);
   const [isOpen, openModal, closeModal] = useModal();
+  const [isAdding, startAdding, finishAdding] = useAdding();
 
   useEffect(
     () => window.localStorage.setItem('todo', JSON.stringify(todoData)),
     [todoData]
   );
 
-  const showBoardForm = () => setIsAdding(true);
-  const hideBoardForm = () => setIsAdding(false);
   const clearData = () => setTodoData([]);
   const clearButton = () => openModal();
 
@@ -26,14 +25,14 @@ const TodoApp = () => {
       <div className="flex gap-x-4">
         {isAdding ? (
           <button
-            onClick={hideBoardForm}
+            onClick={finishAdding}
             className="bg-red-500 hover:bg-red-600 transition-colors font-bold py-2 px-4 rounded text-white"
           >
             キャンセル
           </button>
         ) : (
           <button
-            onClick={showBoardForm}
+            onClick={startAdding}
             className="bg-green-500 hover:bg-green-600 transition-colors font-bold py-2 px-4 rounded text-white"
           >
             ボード追加
@@ -53,7 +52,7 @@ const TodoApp = () => {
         />
       </div>
       {isAdding && (
-        <AddBoardForm setTodoData={setTodoData} setIsAdding={setIsAdding} />
+        <AddBoardForm setTodoData={setTodoData} finishAdding={finishAdding} />
       )}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-x-4">
         {todoData.map((board) => (

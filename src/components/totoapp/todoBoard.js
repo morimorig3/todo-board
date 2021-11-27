@@ -1,22 +1,19 @@
-import { useState } from 'react';
 import { FaTimes } from 'react-icons/fa';
 import AddTaskForm from 'components/totoapp/addTaskForm';
 import TodoList from 'components/totoapp/todoList';
 import Modalwindow from 'components/totoapp/modalWindow';
 import useModal from 'hooks/useModal';
+import useAdding from 'hooks/useAdding';
 
 const TodoBoard = ({
   boardId,
   setTodoData = () => undefined,
   todoData = [],
 }) => {
-  const [isTyping, setIsTyping] = useState(false);
+  const [isAdding, startAdding, finishAdding] = useAdding();
   const [isOpen, openModal, closeModal] = useModal();
 
   const { title, todo } = todoData.filter((board) => board.id === boardId)[0];
-
-  const showTaskForm = () => setIsTyping(true);
-  const hideTaskForm = () => setIsTyping(false);
 
   const deleteButton = () => openModal();
 
@@ -47,17 +44,16 @@ const TodoBoard = ({
         />
       </div>
       <TodoList id={boardId} todo={todo} setTodoData={setTodoData} />
-      {isTyping ? (
+      {isAdding ? (
         <AddTaskForm
           id={boardId}
           setTodoData={setTodoData}
-          setIsTyping={setIsTyping}
-          hideTaskForm={hideTaskForm}
+          finishAdding={finishAdding}
         />
       ) : (
         <button
           className="w-full border border-gray-400 text-gray-400 rounded-sm mt-2"
-          onClick={showTaskForm}
+          onClick={startAdding}
         >
           タスクを追加
         </button>

@@ -4,8 +4,7 @@ import { getUniqueStr } from 'components/utility';
 const AddTaskForm = ({
   id,
   setTodoData = () => undefined,
-  setIsTyping = () => undefined,
-  hideTaskForm = () => undefined,
+  finishAdding = () => undefined,
 }) => {
   const [value, setValue] = useState('');
   const typoTask = (e) => setValue(e.target.value);
@@ -23,7 +22,7 @@ const AddTaskForm = ({
       newTodoData.splice(index, 1, board);
       return newTodoData;
     });
-    setIsTyping(false);
+    finishAdding();
   };
 
   return (
@@ -44,7 +43,7 @@ const AddTaskForm = ({
         追加
       </button>
       <button
-        onClick={hideTaskForm}
+        onClick={finishAdding}
         className="grid place-items-center w-full rounded-sm py-1 bg-red-500 hover:bg-red-600 text-white"
       >
         キャンセル
