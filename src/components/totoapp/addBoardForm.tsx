@@ -1,23 +1,33 @@
-import { useState } from 'react';
+import { useState, VFC } from 'react';
 import { getUniqueStr } from 'components/utility';
 
-const AddBoardForm = ({
-  setTodoData = () => undefined,
+type Props = {
+  finishAdding: () => void;
+  addBoard: (newBoard: board) => void;
+};
+
+type board = {
+  title: string;
+  id: string;
+  todo: [];
+};
+
+const AddBoardForm: VFC<Props> = ({
   finishAdding = () => undefined,
+  addBoard = () => undefined,
 }) => {
   const [value, setValue] = useState('');
-  const typoTask = (e) => setValue(e.target.value);
+  const typoTask = (event: React.ChangeEvent<HTMLInputElement>) =>
+    setValue(event.target.value);
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    setTodoData((todoData) => [
-      ...todoData,
-      {
-        title: value,
-        id: getUniqueStr(),
-        todo: [],
-      },
-    ]);
+  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    const newBoard: board = {
+      title: value,
+      id: getUniqueStr(),
+      todo: [],
+    };
+    addBoard(newBoard);
     finishAdding();
   };
 

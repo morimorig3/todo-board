@@ -1,27 +1,36 @@
-import { useState } from 'react';
+import { useState, VFC } from 'react';
 import { getUniqueStr } from 'components/utility';
 
-const AddTaskForm = ({
+type Props = {
+  id: string;
+  finishAdding: () => void;
+  addTask: (id: string, newTask: task) => void;
+};
+
+type task = {
+  title: string;
+  id: string;
+  isCompleted: boolean;
+};
+
+const AddTaskForm: VFC<Props> = ({
   id,
-  setTodoData = () => undefined,
+  addTask = () => undefined,
   finishAdding = () => undefined,
 }) => {
   const [value, setValue] = useState('');
-  const typoTask = (e) => setValue(e.target.value);
+  const typoTask = (event: React.ChangeEvent<HTMLInputElement>) =>
+    setValue(event.target.value);
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    setTodoData((todoData) => {
-      const newTodoData = [...todoData];
-      const board = todoData.filter((board) => board.id === id)[0];
-      const index = todoData.findIndex((board) => board.id === id);
-      board.todo = [
-        ...board.todo,
-        { id: getUniqueStr(), title: value, isCompleted: false },
-      ];
-      newTodoData.splice(index, 1, board);
-      return newTodoData;
-    });
+  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+
+    const newTask = {
+      title: value,
+      id: getUniqueStr(),
+      isCompleted: false,
+    };
+    addTask(id, newTask);
     finishAdding();
   };
 

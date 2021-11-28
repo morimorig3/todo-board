@@ -1,24 +1,36 @@
-import { useState, useEffect } from 'react';
+import { VFC } from 'react';
 import TodoBoard from 'components/totoapp/todoBoard';
 import AddBoardForm from 'components/totoapp/addBoardForm';
 import Modalwindow from 'components/totoapp/modalWindow';
 import useModal from 'hooks/useModal';
 import useAdding from 'hooks/useAdding';
+import useTodoData from 'hooks/useTodoData';
 
-const inititalState = JSON.parse(window.localStorage.getItem('todo') || '[]');
+type task = {
+  title: string;
+  id: string;
+  isCompleted: boolean;
+};
 
-const TodoApp = () => {
-  const [todoData, setTodoData] = useState(inititalState);
+type board = {
+  title: string;
+  id: string;
+  todo: task[];
+};
+
+const TodoApp: VFC = () => {
+  const {
+    todoData,
+    resetTodoData,
+    addBoard,
+    deleteBoard,
+    addTask,
+    deleteTask,
+  } = useTodoData();
   const [isOpen, openModal, closeModal] = useModal();
   const [isAdding, startAdding, finishAdding] = useAdding();
 
-  useEffect(
-    () => window.localStorage.setItem('todo', JSON.stringify(todoData)),
-    [todoData]
-  );
-
-  const clearData = () => setTodoData([]);
-  const clearButton = () => openModal();
+  const clearData = () => resetTodoData();
 
   return (
     <div>
@@ -40,7 +52,7 @@ const TodoApp = () => {
         )}
         <button
           className="border-2 border-gray-500 hover:border-transparent hover:bg-gray-500 text-gray-500 hover:text-gray-100 transition-colors font-bold py-2 px-4 rounded"
-          onClick={clearButton}
+          onClick={openModal}
         >
           クリア
         </button>
@@ -52,15 +64,16 @@ const TodoApp = () => {
         />
       </div>
       {isAdding && (
-        <AddBoardForm setTodoData={setTodoData} finishAdding={finishAdding} />
+        <AddBoardForm addBoard={addBoard} finishAdding={finishAdding} />
       )}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-x-4">
-        {todoData.map((board) => (
+        {todoData.map((board: board) => (
           <TodoBoard
             key={board.id}
-            boardId={board.id}
-            setTodoData={setTodoData}
-            todoData={todoData}
+            board={board}
+            deleteBoard={deleteBoard}
+            addTask={addTask}
+            deleteTask={deleteTask}
           />
         ))}
       </div>

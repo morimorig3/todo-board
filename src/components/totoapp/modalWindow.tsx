@@ -7,7 +7,7 @@ Modal.setAppElement('#root');
 type Props = {
   modalIsOpen: boolean;
   closeModal: () => void;
-  executeFunc: () => void;
+  executeFunc: (id?: string) => void;
   modaltext: string;
 };
 
