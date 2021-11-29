@@ -16,10 +16,9 @@ const TodoApp: VFC = () => {
     addTask,
     deleteTask,
   } = useTodoData();
+
   const [isOpen, openModal, closeModal] = useModal();
   const [isAdding, startAdding, finishAdding] = useAdding();
-
-  const clearData = () => resetTodoData();
 
   return (
     <div>
@@ -39,16 +38,25 @@ const TodoApp: VFC = () => {
             ボード追加
           </button>
         )}
-        <button
-          className="border-2 border-gray-500 hover:border-transparent hover:bg-gray-500 text-gray-500 hover:text-gray-100 transition-colors font-bold py-2 px-4 rounded"
-          onClick={openModal}
-        >
-          クリア
-        </button>
+        {todoData.length ? (
+          <button
+            className="border-2 border-gray-500 hover:border-transparent hover:bg-gray-500 text-gray-500 hover:text-gray-100 transition-colors font-bold py-2 px-4 rounded"
+            onClick={openModal}
+          >
+            クリア
+          </button>
+        ) : (
+          <button
+            className="border-2 border-gray-500 text-gray-500 hover:text-gray-100 font-bold py-2 px-4 rounded pointer-events-none opacity-50"
+            onClick={openModal}
+          >
+            クリア
+          </button>
+        )}
         <Modalwindow
           modalIsOpen={isOpen}
           closeModal={closeModal}
-          executeFunc={clearData}
+          executeFunc={resetTodoData}
           modaltext="すべてのボードを削除しますか？"
         />
       </div>
