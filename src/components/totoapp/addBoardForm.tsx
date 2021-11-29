@@ -1,6 +1,7 @@
 import { useState, VFC } from 'react';
 import { getUniqueStr } from 'components/utility';
 import { Board } from 'types';
+import useInputFocus from 'hooks/useInputFocus';
 
 type Props = {
   finishAdding: () => void;
@@ -11,6 +12,7 @@ const AddBoardForm: VFC<Props> = ({
   finishAdding = () => undefined,
   addBoard = () => undefined,
 }) => {
+  const inputRef = useInputFocus();
   const [value, setValue] = useState('');
   const typoTask = (event: React.ChangeEvent<HTMLInputElement>) =>
     setValue(event.target.value);
@@ -29,6 +31,7 @@ const AddBoardForm: VFC<Props> = ({
   return (
     <form className="my-2" onSubmit={handleSubmit}>
       <input
+        ref={inputRef}
         className="block border w-full rounded-sm mb-2"
         type="text"
         value={value}

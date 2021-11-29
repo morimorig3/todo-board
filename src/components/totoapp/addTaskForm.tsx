@@ -1,6 +1,7 @@
 import { useState, VFC } from 'react';
 import { getUniqueStr } from 'components/utility';
 import { Task } from 'types';
+import useInputFocus from 'hooks/useInputFocus';
 
 type Props = {
   id: string;
@@ -13,6 +14,7 @@ const AddTaskForm: VFC<Props> = ({
   addTask = () => undefined,
   finishAdding = () => undefined,
 }) => {
+  const inputRef = useInputFocus();
   const [value, setValue] = useState('');
   const typoTask = (event: React.ChangeEvent<HTMLInputElement>) =>
     setValue(event.target.value);
@@ -32,6 +34,7 @@ const AddTaskForm: VFC<Props> = ({
   return (
     <form className="my-2" onSubmit={handleSubmit}>
       <input
+        ref={inputRef}
         className="block border w-full rounded-sm mb-2"
         type="text"
         value={value}
