@@ -25,15 +25,12 @@ const TodoBoard: VFC<Props> = ({
 
   const { title, todo, id } = board;
 
-  const deleteButton = () => openModal();
-  const deleteThisBoard = () => deleteBoard(id);
-
   return (
-    <div className="bg-white rounded-lg py-2 px-4 my-4">
-      <div className="flex justify-between items-center">
+    <div className="bg-white my-4 shadow-md">
+      <div className="flex justify-between items-center py-2 px-4 bg-gray-500 text-white">
         <h3 className="font-bold text-lg">{title}</h3>
         <button
-          onClick={deleteButton}
+          onClick={openModal}
           className="bg-red-500 hover:bg-red-600 text-white rounded-full p-1"
         >
           <FaTimes />
@@ -41,7 +38,7 @@ const TodoBoard: VFC<Props> = ({
         <Modalwindow
           modalIsOpen={isOpen}
           closeModal={closeModal}
-          executeFunc={deleteThisBoard}
+          executeFunc={() => deleteBoard(id)}
           modaltext="このボードを削除しますか"
         />
       </div>

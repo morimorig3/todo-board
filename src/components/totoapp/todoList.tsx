@@ -14,10 +14,10 @@ const TodoList: VFC<Props> = ({
   deleteTask = (boardId: string, taskId: string) => undefined,
 }) => {
   return (
-    <ul className="grid grid-cols-1 gap-2 mt-2">
+    <ul className="grid grid-cols-1 mt-2 px-2">
       {todo.map((todo) => (
         <li
-          className="flex justify-between items-center border border-gray-300 p-2 rounded-sm"
+          className="flex justify-between items-center border-b last:border-b-0 border-gray-300 py-3 rounded-sm"
           key={todo.id}
         >
           {todo.title}
