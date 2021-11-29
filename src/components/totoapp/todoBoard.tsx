@@ -4,7 +4,7 @@ import AddTaskForm from 'components/totoapp/addTaskForm';
 import TodoList from 'components/totoapp/todoList';
 import Modalwindow from 'components/totoapp/modalWindow';
 import useModal from 'hooks/useModal';
-import useAdding from 'hooks/useAdding';
+// import useAdding from 'hooks/useAdding';
 import { Task, Board } from 'types';
 
 type Props = {
@@ -20,7 +20,7 @@ const TodoBoard: VFC<Props> = ({
   addTask = (id: string, newTask: Task) => undefined,
   deleteTask = (boardId: string, taskId: string) => undefined,
 }) => {
-  const [isAdding, startAdding, finishAdding] = useAdding();
+  // const [isAdding, startAdding, finishAdding] = useAdding();
   const [isOpen, openModal, closeModal] = useModal();
 
   const { title, todo, id } = board;
@@ -42,17 +42,10 @@ const TodoBoard: VFC<Props> = ({
           modaltext="このボードを削除しますか"
         />
       </div>
-      <TodoList boardId={id} todo={todo} deleteTask={deleteTask} />
-      {isAdding ? (
-        <AddTaskForm id={id} finishAdding={finishAdding} addTask={addTask} />
-      ) : (
-        <button
-          className="w-full border border-gray-400 text-gray-400 rounded-sm mt-2"
-          onClick={startAdding}
-        >
-          タスクを追加
-        </button>
-      )}
+      <div className="px-2">
+        <TodoList boardId={id} todo={todo} deleteTask={deleteTask} />
+        <AddTaskForm id={id} addTask={addTask} />
+      </div>
     </div>
   );
 };

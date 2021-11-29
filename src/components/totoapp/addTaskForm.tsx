@@ -6,17 +6,12 @@ import useInputText from 'hooks/useInputText';
 
 type Props = {
   id: string;
-  finishAdding: () => void;
   addTask: (id: string, newTask: Task) => void;
 };
 
-const AddTaskForm: VFC<Props> = ({
-  id,
-  addTask = () => undefined,
-  finishAdding = () => undefined,
-}) => {
+const AddTaskForm: VFC<Props> = ({ id, addTask = () => undefined }) => {
   const inputRef = useInputFocus();
-  const { value, handleOnChange } = useInputText();
+  const { value, clearValue, handleOnChange } = useInputText();
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -27,14 +22,14 @@ const AddTaskForm: VFC<Props> = ({
       isCompleted: false,
     };
     addTask(id, newTask);
-    finishAdding();
+    clearValue();
   };
 
   return (
-    <form className="my-2" onSubmit={handleSubmit}>
+    <form className="flex gap-2 my-2" onSubmit={handleSubmit}>
       <input
         ref={inputRef}
-        className="block border w-full rounded-sm mb-2"
+        className="block border w-full rounded-sm leading-loose"
         type="text"
         value={value}
         onChange={handleOnChange}
@@ -43,16 +38,10 @@ const AddTaskForm: VFC<Props> = ({
         autoComplete="off"
       />
       <button
-        className="grid place-items-center w-full rounded-sm py-1 bg-green-500 hover:bg-green-600 text-white mb-2"
+        className="grid place-items-center rounded-sm px-2 bg-green-500 hover:bg-green-600 text-white whitespace-nowrap"
         type="submit"
       >
         追加
-      </button>
-      <button
-        onClick={finishAdding}
-        className="grid place-items-center w-full rounded-sm py-1 bg-red-500 hover:bg-red-600 text-white"
-      >
-        キャンセル
       </button>
     </form>
   );
