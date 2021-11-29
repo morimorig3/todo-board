@@ -1,7 +1,8 @@
-import { useState, VFC } from 'react';
+import { VFC } from 'react';
 import { getUniqueStr } from 'components/utility';
 import { Task } from 'types';
 import useInputFocus from 'hooks/useInputFocus';
+import useInputText from 'hooks/useInputText';
 
 type Props = {
   id: string;
@@ -15,9 +16,7 @@ const AddTaskForm: VFC<Props> = ({
   finishAdding = () => undefined,
 }) => {
   const inputRef = useInputFocus();
-  const [value, setValue] = useState('');
-  const typoTask = (event: React.ChangeEvent<HTMLInputElement>) =>
-    setValue(event.target.value);
+  const { value, handleOnChange } = useInputText();
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -38,7 +37,7 @@ const AddTaskForm: VFC<Props> = ({
         className="block border w-full rounded-sm mb-2"
         type="text"
         value={value}
-        onChange={typoTask}
+        onChange={handleOnChange}
         required
         placeholder="ここにタスクを入力"
         autoComplete="off"
