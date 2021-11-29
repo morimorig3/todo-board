@@ -1,15 +1,10 @@
 import { VFC } from 'react';
 import { GrFormClose } from 'react-icons/gr';
-
-type task = {
-  title: string;
-  id: string;
-  isCompleted: boolean;
-};
+import { Task } from 'types';
 
 type Props = {
   boardId: string;
-  todo: task[];
+  todo: Task[];
   deleteTask: (boardId: string, taskId: string) => void;
 };
 

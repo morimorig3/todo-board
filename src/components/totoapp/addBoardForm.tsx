@@ -1,15 +1,10 @@
 import { useState, VFC } from 'react';
 import { getUniqueStr } from 'components/utility';
+import { Board } from 'types';
 
 type Props = {
   finishAdding: () => void;
-  addBoard: (newBoard: board) => void;
-};
-
-type board = {
-  title: string;
-  id: string;
-  todo: [];
+  addBoard: (newBoard: Board) => void;
 };
 
 const AddBoardForm: VFC<Props> = ({
@@ -22,7 +17,7 @@ const AddBoardForm: VFC<Props> = ({
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    const newBoard: board = {
+    const newBoard: Board = {
       title: value,
       id: getUniqueStr(),
       todo: [],

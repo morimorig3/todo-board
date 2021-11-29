@@ -5,30 +5,19 @@ import TodoList from 'components/totoapp/todoList';
 import Modalwindow from 'components/totoapp/modalWindow';
 import useModal from 'hooks/useModal';
 import useAdding from 'hooks/useAdding';
-
-type task = {
-  title: string;
-  id: string;
-  isCompleted: boolean;
-};
-
-type board = {
-  title: string;
-  id: string;
-  todo: task[];
-};
+import { Task, Board } from 'types';
 
 type Props = {
-  board: board;
+  board: Board;
   deleteBoard: (id: string) => void;
-  addTask: (id: string, newTask: task) => void;
+  addTask: (id: string, newTask: Task) => void;
   deleteTask: (boardId: string, taskId: string) => void;
 };
 
 const TodoBoard: VFC<Props> = ({
   board,
   deleteBoard = (id: string) => undefined,
-  addTask = (id: string, newTask: task) => undefined,
+  addTask = (id: string, newTask: Task) => undefined,
   deleteTask = (boardId: string, taskId: string) => undefined,
 }) => {
   const [isAdding, startAdding, finishAdding] = useAdding();

@@ -5,18 +5,7 @@ import Modalwindow from 'components/totoapp/modalWindow';
 import useModal from 'hooks/useModal';
 import useAdding from 'hooks/useAdding';
 import useTodoData from 'hooks/useTodoData';
-
-type task = {
-  title: string;
-  id: string;
-  isCompleted: boolean;
-};
-
-type board = {
-  title: string;
-  id: string;
-  todo: task[];
-};
+import { Board } from 'types';
 
 const TodoApp: VFC = () => {
   const {
@@ -67,7 +56,7 @@ const TodoApp: VFC = () => {
         <AddBoardForm addBoard={addBoard} finishAdding={finishAdding} />
       )}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-x-4">
-        {todoData.map((board: board) => (
+        {todoData.map((board: Board) => (
           <TodoBoard
             key={board.id}
             board={board}

@@ -1,16 +1,11 @@
 import { useState, VFC } from 'react';
 import { getUniqueStr } from 'components/utility';
+import { Task } from 'types';
 
 type Props = {
   id: string;
   finishAdding: () => void;
-  addTask: (id: string, newTask: task) => void;
-};
-
-type task = {
-  title: string;
-  id: string;
-  isCompleted: boolean;
+  addTask: (id: string, newTask: Task) => void;
 };
 
 const AddTaskForm: VFC<Props> = ({

@@ -1,16 +1,5 @@
 import { useState, useEffect } from 'react';
-
-type task = {
-  title: string;
-  id: string;
-  isCompleted: boolean;
-};
-
-type board = {
-  title: string;
-  id: string;
-  todo: task[];
-};
+import { Task, Board } from 'types';
 
 const inititalState = JSON.parse(window.localStorage.getItem('todo') || '[]');
 
@@ -19,7 +8,7 @@ const useTodoData = () => {
 
   const resetTodoData = () => setTodoData([]);
 
-  const addBoard = (newBoard: board) => {
+  const addBoard = (newBoard: Board) => {
     const newTodoData = [...todoData, newBoard];
     setTodoData(newTodoData);
   };
@@ -27,28 +16,28 @@ const useTodoData = () => {
   const deleteBoard = (id: string) => {
     const newTodoData = [...todoData];
     const targetBoardIndex = todoData.findIndex(
-      (board: board) => board.id === id
+      (board: Board) => board.id === id
     );
     newTodoData.splice(targetBoardIndex, 1);
     setTodoData(newTodoData);
   };
 
-  const addTask = (id: string, newTask: task) => {
+  const addTask = (id: string, newTask: Task) => {
     const newTodoData = [...todoData];
-    const board = todoData.find((board: board) => board.id === id);
+    const board = todoData.find((board: Board) => board.id === id);
     if (!board) return;
     board.todo = [...board.todo, newTask];
 
-    const index = todoData.findIndex((board: board) => board.id === id);
+    const index = todoData.findIndex((board: Board) => board.id === id);
     newTodoData.splice(index, 1, board);
     setTodoData(newTodoData);
   };
 
   const deleteTask = (boardId: string, taskId: string) => {
     const newTodoData = [...todoData];
-    const board = todoData.find((board: board) => board.id === boardId);
-    const index = todoData.findIndex((board: board) => board.id === boardId);
-    board.todo = board.todo.filter((task: task) => task.id !== taskId);
+    const board = todoData.find((board: Board) => board.id === boardId);
+    const index = todoData.findIndex((board: Board) => board.id === boardId);
+    board.todo = board.todo.filter((task: Task) => task.id !== taskId);
     newTodoData.splice(index, 1, board);
     setTodoData(newTodoData);
   };
