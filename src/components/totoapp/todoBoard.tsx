@@ -12,6 +12,7 @@ type Props = {
   deleteBoard: (id: string) => void;
   addTask: (id: string, newTask: Task) => void;
   deleteTask: (boardId: string, taskId: string) => void;
+  toggleTask: (boardId: string, taskId: string) => void;
 };
 
 const TodoBoard: VFC<Props> = ({
@@ -19,6 +20,7 @@ const TodoBoard: VFC<Props> = ({
   deleteBoard = (id: string) => undefined,
   addTask = (id: string, newTask: Task) => undefined,
   deleteTask = (boardId: string, taskId: string) => undefined,
+  toggleTask = (boardId: string, taskId: string) => undefined,
 }) => {
   // const [isAdding, startAdding, finishAdding] = useAdding();
   const [isOpen, openModal, closeModal] = useModal();
@@ -43,7 +45,12 @@ const TodoBoard: VFC<Props> = ({
         />
       </div>
       <div className="px-2">
-        <TodoList boardId={id} todo={todo} deleteTask={deleteTask} />
+        <TodoList
+          boardId={id}
+          todo={todo}
+          deleteTask={deleteTask}
+          toggleTask={toggleTask}
+        />
         <AddTaskForm id={id} addTask={addTask} />
       </div>
     </div>

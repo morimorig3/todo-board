@@ -15,6 +15,7 @@ const TodoApp: VFC = () => {
     deleteBoard,
     addTask,
     deleteTask,
+    toggleTask,
   } = useTodoData();
 
   const [isOpen, openModal, closeModal] = useModal();
@@ -71,6 +72,7 @@ const TodoApp: VFC = () => {
             deleteBoard={deleteBoard}
             addTask={addTask}
             deleteTask={deleteTask}
+            toggleTask={toggleTask}
           />
         ))}
       </div>

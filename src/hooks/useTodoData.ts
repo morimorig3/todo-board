@@ -42,6 +42,18 @@ const useTodoData = () => {
     setTodoData(newTodoData);
   };
 
+  const toggleTask = (boardId: string, taskId: string) => {
+    const newTodoData = [...todoData];
+    const board = todoData.find((board: Board) => board.id === boardId);
+    const index = todoData.findIndex((board: Board) => board.id === boardId);
+    board.todo = board.todo.map((task: Task) => {
+      if (task.id === taskId) task.isCompleted = !task.isCompleted;
+      return task;
+    });
+    newTodoData.splice(index, 1, board);
+    setTodoData(newTodoData);
+  };
+
   useEffect(
     () => window.localStorage.setItem('todo', JSON.stringify(todoData)),
     [todoData]
@@ -54,6 +66,7 @@ const useTodoData = () => {
     deleteBoard,
     addTask,
     deleteTask,
+    toggleTask,
   };
 };
 
