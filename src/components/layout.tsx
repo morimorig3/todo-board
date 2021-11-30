@@ -1,4 +1,10 @@
-const Layout = ({ children }) => {
+import { VFC, ReactNode } from 'react';
+
+type Props = {
+  children?: ReactNode;
+};
+
+const Layout: VFC<Props> = ({ children }) => {
   return (
     <div className="container mx-auto px-4 pb-10">
       <a
