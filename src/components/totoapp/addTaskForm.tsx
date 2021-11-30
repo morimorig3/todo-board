@@ -26,10 +26,10 @@ const AddTaskForm: VFC<Props> = ({ id, addTask = () => undefined }) => {
   };
 
   return (
-    <form className="flex gap-2 my-2" onSubmit={handleSubmit}>
+    <form className="flex my-2 rounded-sm" onSubmit={handleSubmit}>
       <input
         ref={inputRef}
-        className="block border w-full rounded-sm leading-loose"
+        className="block border w-full leading-loose"
         type="text"
         value={value}
         onChange={handleOnChange}
@@ -39,14 +39,14 @@ const AddTaskForm: VFC<Props> = ({ id, addTask = () => undefined }) => {
       />
       {value ? (
         <button
-          className="grid place-items-center rounded-sm px-2 bg-green-500 hover:bg-green-600 text-white whitespace-nowrap"
+          className="grid place-items-center px-2 bg-green-500 hover:bg-green-600 text-white whitespace-nowrap"
           type="submit"
         >
           追加
         </button>
       ) : (
         <button
-          className="grid place-items-center rounded-sm px-2 bg-green-500 text-white whitespace-nowrap opacity-50 pointer-events-none"
+          className="grid place-items-center px-2 bg-green-500 text-white whitespace-nowrap opacity-50 pointer-events-none"
           type="submit"
         >
           追加
