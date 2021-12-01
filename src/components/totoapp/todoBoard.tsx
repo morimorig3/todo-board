@@ -16,10 +16,10 @@ type Props = {
 
 const TodoBoard: VFC<Props> = ({
   board,
-  deleteBoard = (id: string) => undefined,
-  addTask = (id: string, newTask: Task) => undefined,
-  deleteTask = (boardId: string, taskId: string) => undefined,
-  toggleTask = (boardId: string, taskId: string) => undefined,
+  deleteBoard = () => undefined,
+  addTask = () => undefined,
+  deleteTask = () => undefined,
+  toggleTask = () => undefined,
 }) => {
   const [isOpen, openModal, closeModal] = useModal();
 
@@ -32,6 +32,7 @@ const TodoBoard: VFC<Props> = ({
         <button
           onClick={openModal}
           className="bg-red-500 hover:bg-red-600 text-white rounded-full p-1"
+          type="button"
         >
           <FaTimes />
         </button>
