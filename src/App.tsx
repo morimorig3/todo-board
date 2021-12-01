@@ -18,5 +18,4 @@ const App: VFC = () => (
     <TodoApp />
   </Layout>
 );
-
 export default App;
