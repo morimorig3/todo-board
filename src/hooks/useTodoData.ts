@@ -5,7 +5,15 @@ const inititalState = JSON.parse(
   window.localStorage.getItem('todo') || '[]',
 ) as TodoData;
 
-const useTodoData = () => {
+const useTodoData = (): {
+  todoData: TodoData;
+  resetTodoData: () => void;
+  addBoard: (newBoard: Board) => void;
+  deleteBoard: (id: string) => void;
+  addTask: (id: string, newTask: Task) => void;
+  deleteTask: (boardId: string, taskId: string) => void;
+  toggleTask: (boardId: string, taskId: string) => void;
+} => {
   const [todoData, setTodoData] = useState<TodoData>(inititalState);
 
   const resetTodoData = () => setTodoData([]);
