@@ -9,3 +9,5 @@ export type Board = {
   id: string;
   todo: Task[];
 };
+
+export type TodoData = Board[];

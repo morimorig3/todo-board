@@ -1,10 +1,20 @@
 import { useState, useEffect } from 'react';
-import { Task, Board } from 'types';
+import { Task, Board, TodoData } from 'types';
 
-const inititalState = JSON.parse(window.localStorage.getItem('todo') || '[]');
+const inititalState = JSON.parse(
+  window.localStorage.getItem('todo') || '[]',
+) as TodoData;
 
-const useTodoData = () => {
-  const [todoData, setTodoData] = useState(inititalState);
+const useTodoData = (): {
+  todoData: TodoData;
+  resetTodoData: () => void;
+  addBoard: (newBoard: Board) => void;
+  deleteBoard: (id: string) => void;
+  addTask: (id: string, newTask: Task) => void;
+  deleteTask: (boardId: string, taskId: string) => void;
+  toggleTask: (boardId: string, taskId: string) => void;
+} => {
+  const [todoData, setTodoData] = useState<TodoData>(inititalState);
 
   const resetTodoData = () => setTodoData([]);
 
@@ -16,7 +26,7 @@ const useTodoData = () => {
   const deleteBoard = (id: string) => {
     const newTodoData = [...todoData];
     const targetBoardIndex = todoData.findIndex(
-      (board: Board) => board.id === id
+      (board: Board) => board.id === id,
     );
     newTodoData.splice(targetBoardIndex, 1);
     setTodoData(newTodoData);
@@ -24,39 +34,47 @@ const useTodoData = () => {
 
   const addTask = (id: string, newTask: Task) => {
     const newTodoData = [...todoData];
-    const board = todoData.find((board: Board) => board.id === id);
-    if (!board) return;
-    board.todo = [...board.todo, newTask];
+    const newBoard = todoData.find((board: Board) => board.id === id);
+    if (!newBoard) return;
+    newBoard.todo = [...newBoard.todo, newTask];
 
     const index = todoData.findIndex((board: Board) => board.id === id);
-    newTodoData.splice(index, 1, board);
+    newTodoData.splice(index, 1, newBoard);
     setTodoData(newTodoData);
   };
 
   const deleteTask = (boardId: string, taskId: string) => {
     const newTodoData = [...todoData];
-    const board = todoData.find((board: Board) => board.id === boardId);
+    const newBoard = todoData.find((board: Board) => board.id === boardId);
+    if (!newBoard) return;
     const index = todoData.findIndex((board: Board) => board.id === boardId);
-    board.todo = board.todo.filter((task: Task) => task.id !== taskId);
-    newTodoData.splice(index, 1, board);
+    newBoard.todo = newBoard.todo.filter((task: Task) => task.id !== taskId);
+    newTodoData.splice(index, 1, newBoard);
     setTodoData(newTodoData);
   };
 
   const toggleTask = (boardId: string, taskId: string) => {
     const newTodoData = [...todoData];
-    const board = todoData.find((board: Board) => board.id === boardId);
+    const newBoard = todoData.find((board: Board) => board.id === boardId);
+    if (!newBoard) return;
     const index = todoData.findIndex((board: Board) => board.id === boardId);
-    board.todo = board.todo.map((task: Task) => {
-      if (task.id === taskId) task.isCompleted = !task.isCompleted;
+    newBoard.todo = newBoard.todo.map((task: Task) => {
+      if (task.id === taskId) {
+        const newTask = task;
+        newTask.isCompleted = !newTask.isCompleted;
+
+        return newTask;
+      }
+
       return task;
     });
-    newTodoData.splice(index, 1, board);
+    newTodoData.splice(index, 1, newBoard);
     setTodoData(newTodoData);
   };
 
   useEffect(
     () => window.localStorage.setItem('todo', JSON.stringify(todoData)),
-    [todoData]
+    [todoData],
   );
 
   return {
