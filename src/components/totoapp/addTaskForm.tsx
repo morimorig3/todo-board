@@ -1,5 +1,5 @@
 import { VFC } from 'react';
-import { uuid } from 'uuidv4';
+import { v4 } from 'uuid';
 import { Task } from 'types';
 import useInputFocus from 'hooks/useInputFocus';
 import useInputText from 'hooks/useInputText';
@@ -18,7 +18,7 @@ const AddTaskForm: VFC<Props> = ({ id, addTask = () => undefined }) => {
 
     const newTask = {
       title: value,
-      id: uuid(),
+      id: v4(),
       isCompleted: false,
     };
     addTask(id, newTask);

@@ -1,5 +1,5 @@
 import { VFC } from 'react';
-import { uuid } from 'uuidv4';
+import { v4 } from 'uuid';
 import { Board } from 'types';
 import useInputFocus from 'hooks/useInputFocus';
 import useInputText from 'hooks/useInputText';
@@ -20,7 +20,7 @@ const AddBoardForm: VFC<Props> = ({
     event.preventDefault();
     const newBoard: Board = {
       title: value,
-      id: uuid(),
+      id: v4(),
       todo: [],
     };
     addBoard(newBoard);
