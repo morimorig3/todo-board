@@ -68,7 +68,10 @@ const TodoApp: VFC = () => {
       {isAdding && (
         <AddBoardForm addBoard={addBoard} finishAdding={finishAdding} />
       )}
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-x-4">
+      <div
+        data-testid="boards-wrap"
+        className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-x-4"
+      >
         {todoData.map((board: Board) => (
           <TodoBoard
             key={board.id}

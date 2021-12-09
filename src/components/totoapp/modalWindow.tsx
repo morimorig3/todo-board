@@ -2,7 +2,7 @@ import { VFC } from 'react';
 import Modal from 'react-modal';
 import style from 'styles/Modalwindow.module.css';
 
-Modal.setAppElement('#root');
+if (process.env.NODE_ENV !== 'test') Modal.setAppElement('#root');
 
 type Props = {
   modalIsOpen: boolean;
@@ -32,6 +32,7 @@ const Modalwindow: VFC<Props> = ({
         afterOpen: style.Overlay__after,
         beforeClose: style.Overlay__before,
       }}
+      ariaHideApp={process.env.NODE_ENV !== 'test'}
     >
       <p className="font-bold mb-4">{modaltext}</p>
       <div className="flex gap-4 justify-center">
