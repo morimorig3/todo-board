@@ -1,4 +1,5 @@
 import { VFC } from 'react';
+import Button from 'components/Button';
 import TodoBoard from 'components/totoapp/todoBoard';
 import AddBoardForm from 'components/totoapp/addBoardForm';
 import Modalwindow from 'components/totoapp/modalWindow';
@@ -25,38 +26,31 @@ const TodoApp: VFC = () => {
     <div>
       <div className="flex gap-x-4">
         {isAdding ? (
-          <button
+          <Button
             onClick={finishAdding}
-            className="bg-red-500 hover:bg-red-600 transition-colors font-bold py-2 px-4 rounded text-white"
-            type="button"
+            className="bg-red-500 hover:bg-red-600 text-white"
           >
             キャンセル
-          </button>
+          </Button>
         ) : (
-          <button
+          <Button
             onClick={startAdding}
-            className="bg-green-500 hover:bg-green-600 transition-colors font-bold py-2 px-4 rounded text-white"
-            type="button"
+            className="bg-green-500 hover:bg-green-600 text-white"
           >
             ボード追加
-          </button>
+          </Button>
         )}
         {todoData.length ? (
-          <button
-            className="border-2 border-gray-500 hover:border-transparent hover:bg-gray-500 text-gray-500 hover:text-gray-100 transition-colors font-bold py-2 px-4 rounded"
+          <Button
             onClick={openModal}
-            type="button"
+            className="border-2 border-gray-500 hover:border-transparent hover:bg-gray-500 text-gray-500 hover:text-gray-100"
           >
             クリア
-          </button>
+          </Button>
         ) : (
-          <button
-            className="border-2 border-gray-500 text-gray-500 hover:text-gray-100 font-bold py-2 px-4 rounded pointer-events-none opacity-50"
-            onClick={openModal}
-            type="button"
-          >
+          <Button className="border-2 border-gray-500 text-gray-500 hover:text-gray-100 pointer-events-none opacity-50">
             クリア
-          </button>
+          </Button>
         )}
         <Modalwindow
           modalIsOpen={isOpen}
