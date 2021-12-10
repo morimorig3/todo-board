@@ -30,6 +30,7 @@ const TodoBoard: VFC<Props> = ({
       <div className="flex justify-between items-center py-2 px-4 bg-gray-500 text-white">
         <h3 className="font-bold text-lg">{title}</h3>
         <button
+          data-testid="delete-button"
           onClick={openModal}
           className="bg-red-500 hover:bg-red-600 text-white rounded-full p-1"
           type="button"

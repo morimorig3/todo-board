@@ -33,6 +33,7 @@ const TodoList: VFC<Props> = ({
         </label>
         {isCompleted && (
           <button
+            data-testid="delete-task"
             className="ml-auto"
             onClick={() => deleteTask(boardId, id)}
             type="button"
