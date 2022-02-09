@@ -4,23 +4,21 @@ import AddTaskForm from 'components/totoapp/addTaskForm';
 import TodoList from 'components/totoapp/todoList';
 import Modalwindow from 'components/totoapp/modalWindow';
 import useModal from 'hooks/useModal';
-import { Task, Board } from 'types';
+import { useSelector } from 'react-redux';
+import { deleteBoard } from 'components/totoapp/todoReducer';
+import { Board, initialState } from 'types';
 
 type Props = {
-  board: Board;
-  deleteBoard: (id: string) => void;
-  addTask: (id: string, newTask: Task) => void;
-  deleteTask: (boardId: string, taskId: string) => void;
-  toggleTask: (boardId: string, taskId: string) => void;
+  boardId: string;
 };
 
-const TodoBoard: VFC<Props> = ({
-  board,
-  deleteBoard = () => undefined,
-  addTask = () => undefined,
-  deleteTask = () => undefined,
-  toggleTask = () => undefined,
-}) => {
+const TodoBoard: VFC<Props> = ({ boardId = '' }) => {
+  const board = useSelector((state: initialState) => {
+    const { todoBoards } = state;
+
+    return todoBoards.find(({ id }) => id === boardId);
+  }) as Board;
+
   const [isOpen, openModal, closeModal] = useModal();
 
   const { title, todo, id } = board;
@@ -45,13 +43,8 @@ const TodoBoard: VFC<Props> = ({
         />
       </div>
       <div className="px-2">
-        <TodoList
-          boardId={id}
-          todo={todo}
-          deleteTask={deleteTask}
-          toggleTask={toggleTask}
-        />
-        <AddTaskForm id={id} addTask={addTask} />
+        <TodoList boardId={id} todo={todo} />
+        <AddTaskForm boardId={boardId} />
       </div>
     </div>
   );

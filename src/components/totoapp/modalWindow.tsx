@@ -1,7 +1,7 @@
 import { VFC } from 'react';
+import { useDispatch } from 'react-redux';
 import Modal from 'react-modal';
 import Button from 'components/Button';
-import style from 'styles/Modalwindow.module.css';
 
 if (process.env.NODE_ENV !== 'test') Modal.setAppElement('#root');
 
@@ -18,8 +18,9 @@ const Modalwindow: VFC<Props> = ({
   executeFunc = () => undefined,
   modaltext = '',
 }) => {
+  const dispatch = useDispatch();
   const confirmed = () => {
-    executeFunc();
+    dispatch(executeFunc());
     closeModal();
   };
 
@@ -27,11 +28,11 @@ const Modalwindow: VFC<Props> = ({
     <Modal
       isOpen={modalIsOpen}
       onRequestClose={closeModal}
-      className={style.modal__container}
+      className="bg-gray-100 p-6 rounded-lg overflow-y-auto box-border max-h-screen max-w-lg"
       overlayClassName={{
-        base: style.Overlay,
-        afterOpen: style.Overlay__after,
-        beforeClose: style.Overlay__before,
+        base: 'fixed inset-0 bg-black bg-opacity-0 flex justify-center items-center transition-colors duration-300',
+        afterOpen: 'bg-black bg-opacity-60',
+        beforeClose: 'bg-black bg-opacity-0',
       }}
       ariaHideApp={process.env.NODE_ENV !== 'test'}
     >
