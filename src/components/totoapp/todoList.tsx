@@ -11,6 +11,7 @@ type Props = {
 
 const TodoList: VFC<Props> = ({ boardId = 'id', todo = [] }) => {
   const dispatch = useDispatch();
+
   return (
     <ul className="grid grid-cols-1 mt-2">
       {todo.map(({ id, title, isCompleted }) => (
