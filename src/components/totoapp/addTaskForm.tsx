@@ -1,17 +1,18 @@
 import { VFC } from 'react';
 import { v4 } from 'uuid';
-import { Task } from 'types';
 import useInputFocus from 'hooks/useInputFocus';
 import useInputText from 'hooks/useInputText';
+import { useDispatch } from 'react-redux';
+import { addTask } from 'components/totoapp/todoReducer';
 
 type Props = {
-  id: string;
-  addTask: (id: string, newTask: Task) => void;
+  boardId: string;
 };
 
-const AddTaskForm: VFC<Props> = ({ id, addTask = () => undefined }) => {
+const AddTaskForm: VFC<Props> = ({ boardId = '' }) => {
   const inputRef = useInputFocus();
   const { value, clearValue, handleOnChange } = useInputText();
+  const dispatch = useDispatch();
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -21,7 +22,11 @@ const AddTaskForm: VFC<Props> = ({ id, addTask = () => undefined }) => {
       id: v4(),
       isCompleted: false,
     };
-    addTask(id, newTask);
+    const payload = {
+      newTask,
+      boardId,
+    };
+    dispatch(addTask(payload));
     clearValue();
   };
 

@@ -3,16 +3,15 @@ import { v4 } from 'uuid';
 import { Board } from 'types';
 import useInputFocus from 'hooks/useInputFocus';
 import useInputText from 'hooks/useInputText';
+import { useDispatch } from 'react-redux';
+import { addBoard } from 'components/totoapp/todoReducer';
 
 type Props = {
   finishAdding: () => void;
-  addBoard: (newBoard: Board) => void;
 };
 
-const AddBoardForm: VFC<Props> = ({
-  finishAdding = () => undefined,
-  addBoard = () => undefined,
-}) => {
+const AddBoardForm: VFC<Props> = ({ finishAdding = () => undefined }) => {
+  const dispatch = useDispatch();
   const inputRef = useInputFocus();
   const { value, handleOnChange } = useInputText();
 
@@ -23,7 +22,7 @@ const AddBoardForm: VFC<Props> = ({
       id: v4(),
       todo: [],
     };
-    addBoard(newBoard);
+    dispatch(addBoard(newBoard));
     finishAdding();
   };
 

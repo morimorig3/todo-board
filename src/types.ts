@@ -11,3 +11,7 @@ export type Board = {
 };
 
 export type TodoData = Board[];
+
+export type initialState = {
+  todoBoards: TodoData;
+};

@@ -1,26 +1,24 @@
-import { VFC } from 'react';
+import { VFC, useEffect } from 'react';
 import Button from 'components/Button';
 import TodoBoard from 'components/totoapp/todoBoard';
 import AddBoardForm from 'components/totoapp/addBoardForm';
 import Modalwindow from 'components/totoapp/modalWindow';
 import useModal from 'hooks/useModal';
 import useAdding from 'hooks/useAdding';
-import useTodoData from 'hooks/useTodoData';
-import { Board } from 'types';
+import { useSelector } from 'react-redux';
+import { resetAllBoard } from 'components/totoapp/todoReducer';
+import { initialState } from 'types';
 
 const TodoApp: VFC = () => {
-  const {
-    todoData,
-    resetTodoData,
-    addBoard,
-    deleteBoard,
-    addTask,
-    deleteTask,
-    toggleTask,
-  } = useTodoData();
+  const todoData = useSelector((state: initialState) => state.todoBoards);
 
   const [isOpen, openModal, closeModal] = useModal();
   const [isAdding, startAdding, finishAdding] = useAdding();
+
+  useEffect(
+    () => window.localStorage.setItem('todo', JSON.stringify(todoData)),
+    [todoData],
+  );
 
   return (
     <div>
@@ -55,26 +53,17 @@ const TodoApp: VFC = () => {
         <Modalwindow
           modalIsOpen={isOpen}
           closeModal={closeModal}
-          executeFunc={resetTodoData}
+          executeFunc={resetAllBoard}
           modaltext="すべてのボードを削除しますか？"
         />
       </div>
-      {isAdding && (
-        <AddBoardForm addBoard={addBoard} finishAdding={finishAdding} />
-      )}
+      {isAdding && <AddBoardForm finishAdding={finishAdding} />}
       <div
         data-testid="boards-wrap"
         className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-x-4"
       >
-        {todoData.map((board: Board) => (
-          <TodoBoard
-            key={board.id}
-            board={board}
-            deleteBoard={deleteBoard}
-            addTask={addTask}
-            deleteTask={deleteTask}
-            toggleTask={toggleTask}
-          />
+        {todoData.map(({ id }) => (
+          <TodoBoard key={id} boardId={id} />
         ))}
       </div>
     </div>

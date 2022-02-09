@@ -1,4 +1,5 @@
 import { VFC } from 'react';
+import { useDispatch } from 'react-redux';
 import Modal from 'react-modal';
 import Button from 'components/Button';
 import style from 'styles/Modalwindow.module.css';
@@ -18,8 +19,9 @@ const Modalwindow: VFC<Props> = ({
   executeFunc = () => undefined,
   modaltext = '',
 }) => {
+  const dispatch = useDispatch();
   const confirmed = () => {
-    executeFunc();
+    dispatch(executeFunc());
     closeModal();
   };
 
