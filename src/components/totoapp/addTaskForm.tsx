@@ -2,7 +2,7 @@ import { VFC } from 'react';
 import { v4 } from 'uuid';
 import useInputFocus from 'hooks/useInputFocus';
 import useInputText from 'hooks/useInputText';
-import { useDispatch } from 'react-redux';
+import { useAppDispatch } from 'hooks/redux-hooks';
 import { addTask } from 'components/totoapp/todoReducer';
 
 type Props = {
@@ -12,7 +12,7 @@ type Props = {
 const AddTaskForm: VFC<Props> = ({ boardId = '' }) => {
   const inputRef = useInputFocus();
   const { value, clearValue, handleOnChange } = useInputText();
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();

@@ -4,20 +4,18 @@ import AddTaskForm from 'components/totoapp/addTaskForm';
 import TodoList from 'components/totoapp/todoList';
 import Modalwindow from 'components/totoapp/modalWindow';
 import useModal from 'hooks/useModal';
-import { useSelector } from 'react-redux';
+import { useAppSelector } from 'hooks/redux-hooks';
 import { deleteBoard } from 'components/totoapp/todoReducer';
-import { Board, initialState } from 'types';
+import { Board } from 'types';
 
 type Props = {
   boardId: string;
 };
 
 const TodoBoard: VFC<Props> = ({ boardId = '' }) => {
-  const board = useSelector((state: initialState) => {
-    const { todoBoards } = state;
+  const todoBoards = useAppSelector((state) => state.todoBoards);
 
-    return todoBoards.find(({ id }) => id === boardId);
-  }) as Board;
+  const board = todoBoards.find(({ id }) => id === boardId) as Board;
 
   const [isOpen, openModal, closeModal] = useModal();
 

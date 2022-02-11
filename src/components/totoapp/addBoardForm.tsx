@@ -3,7 +3,7 @@ import { v4 } from 'uuid';
 import { Board } from 'types';
 import useInputFocus from 'hooks/useInputFocus';
 import useInputText from 'hooks/useInputText';
-import { useDispatch } from 'react-redux';
+import { useAppDispatch } from 'hooks/redux-hooks';
 import { addBoard } from 'components/totoapp/todoReducer';
 
 type Props = {
@@ -11,7 +11,7 @@ type Props = {
 };
 
 const AddBoardForm: VFC<Props> = ({ finishAdding = () => undefined }) => {
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   const inputRef = useInputFocus();
   const { value, handleOnChange } = useInputText();
 
