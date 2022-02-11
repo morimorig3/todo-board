@@ -1,43 +1,27 @@
-import { VFC } from 'react';
-import { v4 } from 'uuid';
+import { VFC, FormEvent, ChangeEvent } from 'react';
 import useInputFocus from 'hooks/useInputFocus';
-import useInputText from 'hooks/useInputText';
-import { useAppDispatch } from 'hooks/redux-hooks';
-import { addTask } from 'components/totoapp/todoReducer';
 
 type Props = {
-  boardId: string;
+  value: string;
+  onSubmit: (event: FormEvent<HTMLFormElement>) => void;
+  onChange: (event: ChangeEvent<HTMLInputElement>) => void;
 };
 
-const AddTaskForm: VFC<Props> = ({ boardId = '' }) => {
+const AddTaskForm: VFC<Props> = ({
+  value = '',
+  onSubmit = () => undefined,
+  onChange = () => undefined,
+}) => {
   const inputRef = useInputFocus();
-  const { value, clearValue, handleOnChange } = useInputText();
-  const dispatch = useAppDispatch();
-
-  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
-
-    const newTask = {
-      title: value,
-      id: v4(),
-      isCompleted: false,
-    };
-    const payload = {
-      newTask,
-      boardId,
-    };
-    dispatch(addTask(payload));
-    clearValue();
-  };
 
   return (
-    <form className="flex my-2 rounded-sm" onSubmit={handleSubmit}>
+    <form className="flex my-2 rounded-sm" onSubmit={onSubmit}>
       <input
         ref={inputRef}
         className="block border w-full leading-loose"
         type="text"
         value={value}
-        onChange={handleOnChange}
+        onChange={onChange}
         required
         placeholder="ここにタスクを入力"
         autoComplete="off"

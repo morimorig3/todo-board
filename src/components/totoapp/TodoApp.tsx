@@ -1,7 +1,7 @@
 import { VFC, useEffect } from 'react';
 import Button from 'components/Button';
-import TodoBoard from 'components/totoapp/todoBoard';
-import AddBoardForm from 'components/totoapp/addBoardForm';
+import EnhancedTodoBoard from 'containers/todoapp/todoBoard';
+import EnhancedAddBoardForm from 'containers/todoapp/addBoardForm';
 import Modalwindow from 'components/totoapp/modalWindow';
 import useModal from 'hooks/useModal';
 import useAdding from 'hooks/useAdding';
@@ -59,13 +59,13 @@ const TodoApp: VFC = () => {
           modaltext="すべてのボードを削除しますか？"
         />
       </div>
-      {isAdding && <AddBoardForm finishAdding={finishAdding} />}
+      {isAdding && <EnhancedAddBoardForm finishAdding={finishAdding} />}
       <div
         data-testid="boards-wrap"
         className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-x-4"
       >
         {todoData.map(({ id }) => (
-          <TodoBoard key={id} boardId={id} />
+          <EnhancedTodoBoard key={id} boardId={id} />
         ))}
       </div>
     </div>

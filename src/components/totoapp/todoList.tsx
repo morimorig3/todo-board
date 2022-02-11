@@ -1,7 +1,7 @@
 import { VFC } from 'react';
 import { IoTrashOutline } from 'react-icons/io5';
 import { Task } from 'types';
-import { useAppDispatch } from 'hooks/redux-hooks';
+import { useDispatch } from 'react-redux';
 import { deleteTask, toggleComplete } from 'components/totoapp/todoReducer';
 
 type Props = {
@@ -10,7 +10,7 @@ type Props = {
 };
 
 const TodoList: VFC<Props> = ({ boardId = 'id', todo = [] }) => {
-  const dispatch = useAppDispatch();
+  const dispatch = useDispatch();
 
   return (
     <ul className="grid grid-cols-1 mt-2">

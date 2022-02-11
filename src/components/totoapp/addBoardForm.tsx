@@ -1,39 +1,27 @@
-import { VFC } from 'react';
-import { v4 } from 'uuid';
-import { Board } from 'types';
+import { VFC, ChangeEvent, FormEvent } from 'react';
 import useInputFocus from 'hooks/useInputFocus';
-import useInputText from 'hooks/useInputText';
-import { useAppDispatch } from 'hooks/redux-hooks';
-import { addBoard } from 'components/totoapp/todoReducer';
 
 type Props = {
-  finishAdding: () => void;
+  value: string;
+  onSubmit: (event: FormEvent<HTMLFormElement>) => void;
+  onChange: (event: ChangeEvent<HTMLInputElement>) => void;
 };
 
-const AddBoardForm: VFC<Props> = ({ finishAdding = () => undefined }) => {
-  const dispatch = useAppDispatch();
+const AddBoardForm: VFC<Props> = ({
+  value = '',
+  onSubmit = () => undefined,
+  onChange = () => undefined,
+}) => {
   const inputRef = useInputFocus();
-  const { value, handleOnChange } = useInputText();
-
-  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
-    const newBoard: Board = {
-      title: value,
-      id: v4(),
-      todo: [],
-    };
-    dispatch(addBoard(newBoard));
-    finishAdding();
-  };
 
   return (
-    <form className="my-2" onSubmit={handleSubmit}>
+    <form className="my-2" onSubmit={onSubmit}>
       <input
         ref={inputRef}
         className="block border w-full rounded-sm mb-2"
         type="text"
         value={value}
-        onChange={handleOnChange}
+        onChange={onChange}
         required
         placeholder="ここにボードタイトルを入力"
         autoComplete="off"
