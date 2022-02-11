@@ -1,24 +1,25 @@
 import { VFC } from 'react';
-import { useDispatch } from 'react-redux';
+import { useAppDispatch } from 'hooks/redux-hooks';
 import Modal from 'react-modal';
 import Button from 'components/Button';
+import { AnyAction } from '@reduxjs/toolkit';
 
 if (process.env.NODE_ENV !== 'test') Modal.setAppElement('#root');
 
 type Props = {
   modalIsOpen: boolean;
   closeModal: () => void;
-  executeFunc: (id?: string) => void;
+  executeFunc: () => AnyAction;
   modaltext: string;
 };
 
 const Modalwindow: VFC<Props> = ({
   modalIsOpen = false,
   closeModal = () => undefined,
-  executeFunc = () => undefined,
   modaltext = '',
+  executeFunc,
 }) => {
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   const confirmed = () => {
     dispatch(executeFunc());
     closeModal();

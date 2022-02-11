@@ -1,12 +1,12 @@
 import { useState } from 'react';
 
-const useAdding = (): [boolean, () => void, () => void] => {
+const useAdding = () => {
   const [isAdding, setIsAdding] = useState(false);
 
   const startAdding = () => setIsAdding(true);
   const finishAdding = () => setIsAdding(false);
 
-  return [isAdding, startAdding, finishAdding];
+  return [isAdding, startAdding, finishAdding] as const;
 };
 
 export default useAdding;

@@ -1,20 +1,22 @@
 import { VFC, useEffect } from 'react';
 import Button from 'components/Button';
-import TodoBoard from 'components/totoapp/todoBoard';
-import AddBoardForm from 'components/totoapp/addBoardForm';
+import EnhancedTodoBoard from 'containers/todoapp/todoBoard';
+import EnhancedAddBoardForm from 'containers/todoapp/addBoardForm';
 import Modalwindow from 'components/totoapp/modalWindow';
 import useModal from 'hooks/useModal';
 import useAdding from 'hooks/useAdding';
-import { useSelector } from 'react-redux';
+import { useAppSelector } from 'hooks/redux-hooks';
 import { resetAllBoard } from 'components/totoapp/todoReducer';
-import { initialState } from 'types';
 
 const TodoApp: VFC = () => {
-  const todoData = useSelector((state: initialState) => state.todoBoards);
+  const todoData = useAppSelector((state) => state.todoBoards);
 
   const [isOpen, openModal, closeModal] = useModal();
   const [isAdding, startAdding, finishAdding] = useAdding();
 
+  const isEmpty = todoData.length > 0;
+
+  // データ変更時にlocalstorageにも書き込む
   useEffect(
     () => window.localStorage.setItem('todo', JSON.stringify(todoData)),
     [todoData],
@@ -38,7 +40,7 @@ const TodoApp: VFC = () => {
             ボード追加
           </Button>
         )}
-        {todoData.length ? (
+        {isEmpty ? (
           <Button
             onClick={openModal}
             className="border-2 border-gray-500 hover:border-transparent hover:bg-gray-500 text-gray-500 hover:text-gray-100"
@@ -53,17 +55,17 @@ const TodoApp: VFC = () => {
         <Modalwindow
           modalIsOpen={isOpen}
           closeModal={closeModal}
-          executeFunc={resetAllBoard}
+          executeFunc={() => resetAllBoard()}
           modaltext="すべてのボードを削除しますか？"
         />
       </div>
-      {isAdding && <AddBoardForm finishAdding={finishAdding} />}
+      {isAdding && <EnhancedAddBoardForm finishAdding={finishAdding} />}
       <div
         data-testid="boards-wrap"
         className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-x-4"
       >
         {todoData.map(({ id }) => (
-          <TodoBoard key={id} boardId={id} />
+          <EnhancedTodoBoard key={id} boardId={id} />
         ))}
       </div>
     </div>
